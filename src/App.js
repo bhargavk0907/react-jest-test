@@ -1,25 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import './App.css'
+import Greeter from './GreeterComponent'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+export default class App extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      userName: '',
+    }
+  }
+
+  updateUserName = (event) => {
+    this.setState({
+      userName: event.target.value,
+    })
+  }
+
+  clearName = (event) => {
+    this.setState({
+      userName: '',
+    })
+  }
+
+  render() {
+    return (
+      <div id='app'>
+        <h3>Input:</h3>
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          <label htmlFor='userName'>User Name: </label>
+          <input type='text' id='userName' value={this.state.userName} onChange={this.updateUserName}/>
+          <button onClick={this.clearName}>Clear</button>
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+        <h3>Message:</h3>
+        <Greeter userName={this.state.userName}/>
+      </div>
+    )
+  }
 }
-
-export default App;
